@@ -1,3 +1,5 @@
+//Responsible for creating a board
+
 function Board(){
   this.grid = []
 }

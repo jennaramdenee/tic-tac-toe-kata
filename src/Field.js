@@ -1,3 +1,5 @@
+//Responsible for managing the state of a single field/cell
+
 (function(exports){
 
 

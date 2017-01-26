@@ -50,12 +50,38 @@ describe("Game", function(){
 
   })
 
+  describe("Assign 'X' and 'O' to players", function(){
+
+    it("can assign 'X' to first player", function(){
+      game.players = [player1, player2]
+      game.assignPlayerValue()
+      expect(player1.value).toEqual("X")
+    })
+
+    it("can assign 'O' to first player", function(){
+      game.players = [player1, player2]
+      game.assignPlayerValue()
+      expect(player2.value).toEqual("O")
+    })
+
+  })
+
   describe("Start Game", function(){
 
     it("can start a game by creating a new grid", function(){
       spyOn(Board.prototype, "createGrid")
       game.startGame(3)
       expect(Board.prototype.createGrid).toHaveBeenCalled()
+    })
+
+  })
+
+  describe("Switching Turns", function(){
+
+    it("can indicate whose turn it is", function(){
+      game.players = [player1, player2]
+      game.switchPlayer()
+      expect(game.currentPlayer).toEqual(player2)
     })
 
   })

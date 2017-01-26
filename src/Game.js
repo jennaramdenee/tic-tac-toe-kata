@@ -18,3 +18,12 @@ Game.prototype.addPlayer = function(player){
 Game.prototype.startGame = function(size){
   this.board.createGrid(3)
 }
+
+Game.prototype.switchPlayer = function(){
+  this.currentPlayer = this.players.reverse()[0]
+}
+
+Game.prototype.assignPlayerValue = function(){
+  this.players[0].value = "X"
+  this.players[1].value = "O"
+}

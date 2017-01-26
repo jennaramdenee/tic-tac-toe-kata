@@ -19,6 +19,7 @@ Game.prototype.startGame = function(size){
   if (this.enoughPlayers()){
     this.board.createGrid(size)
     this.assignPlayerValue()
+    this.assignCurrentPlayer()
   } else {
     throw new Error("Not enough players")
   }
@@ -32,3 +33,29 @@ Game.prototype.assignPlayerValue = function(){
   this.players[0].value = "X"
   this.players[1].value = "O"
 }
+
+Game.prototype.assignCurrentPlayer = function(){
+  this.currentPlayer = this.players[0]
+}
+
+Game.prototype.findUserField = function(userField){
+  var selectedField;
+  this.board.grid.forEach(function(field){
+    if (field.id === userField){
+      selectedField = field
+    }
+  })
+  return selectedField
+}
+
+Game.prototype.takeTurn = function(userField){
+  var selectedField = this.findUserField(userField)
+  if (selectedField.isEmpty()){
+    selectedField.fill(this.currentPlayer.value)
+  }
+}
+
+//check if that field is empty
+//if so, fill with player.value
+
+//switch turns

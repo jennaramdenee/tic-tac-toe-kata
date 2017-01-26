@@ -3,11 +3,13 @@ describe("Game", function(){
   var game;
   var player1;
   var player2;
+  var field;
 
   beforeEach(function(){
     game = new Game()
     player1 = new Player()
     player2 = new Player()
+    field = new Field(2)
 
   })
 
@@ -66,6 +68,16 @@ describe("Game", function(){
 
   })
 
+  describe("Assign current player", function(){
+
+    it("assigns the first player as current player", function(){
+      game.players = [player1, player2]
+      game.assignCurrentPlayer()
+      expect(game.currentPlayer).toEqual(player1)
+    })
+
+  })
+
   describe("Start Game", function(){
 
     it("can start a game by creating a new grid", function(){
@@ -82,9 +94,48 @@ describe("Game", function(){
       expect(game.assignPlayerValue).toHaveBeenCalled()
     })
 
+    it("assigns current player when starting a game", function(){
+      game.players = [player1, player2]
+      spyOn(game, "assignCurrentPlayer")
+      game.startGame(3)
+      expect(game.assignCurrentPlayer).toHaveBeenCalled()
+    })
+
     it("does not start a game if there aren't enough players", function(){
       game.players = [player1]
       expect(function(){game.startGame(3)}).toThrowError("Not enough players")
+    })
+
+  })
+
+  describe("Taking Turns", function(){
+
+    it("finds the corresponding field to user chosen field", function(){
+      function FieldDouble(){ this.id = 2 }
+      var testField = new FieldDouble()
+
+      function BoardDouble(){ this.grid = [testField] }
+      var testBoard = new BoardDouble()
+
+      game.board = testBoard
+
+      expect(game.findUserField(2)).toEqual(testField)
+    })
+
+    it("checks whether a user's chosen field is empty", function(){
+      spyOn(field, "isEmpty")
+      spyOn(game, "findUserField").and.returnValue(field)
+      game.takeTurn(field)
+      expect(field.isEmpty).toHaveBeenCalled()
+    })
+
+    it("fills the user chosen field with player's value", function(){
+      spyOn(field, "fill")
+      spyOn(game, "findUserField").and.returnValue(field)
+      game.players = [player1, player2]
+      game.startGame(3)
+      game.takeTurn(field)
+      expect(field.fill).toHaveBeenCalled()
     })
 
   })

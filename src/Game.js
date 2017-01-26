@@ -52,10 +52,8 @@ Game.prototype.takeTurn = function(userField){
   var selectedField = this.findUserField(userField)
   if (selectedField.isEmpty()){
     selectedField.fill(this.currentPlayer.value)
+    this.switchPlayer()
   }
 }
-
-//check if that field is empty
-//if so, fill with player.value
 
 //switch turns

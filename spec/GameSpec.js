@@ -138,6 +138,15 @@ describe("Game", function(){
       expect(field.fill).toHaveBeenCalled()
     })
 
+    it("switches current player after a turn has been taken", function(){
+      spyOn(game, "switchPlayer")
+      spyOn(game, "findUserField").and.returnValue(field)
+      game.players = [player1, player2]
+      game.startGame(3)
+      game.takeTurn(field)
+      expect(game.switchPlayer).toHaveBeenCalled()
+    })
+
   })
 
   describe("Switching Turns", function(){

@@ -16,7 +16,12 @@ Game.prototype.addPlayer = function(player){
 }
 
 Game.prototype.startGame = function(size){
-  this.board.createGrid(3)
+  if (this.enoughPlayers()){
+    this.board.createGrid(size)
+    this.assignPlayerValue()
+  } else {
+    throw new Error("Not enough players")
+  }
 }
 
 Game.prototype.switchPlayer = function(){

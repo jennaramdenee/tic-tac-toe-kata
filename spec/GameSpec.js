@@ -69,9 +69,22 @@ describe("Game", function(){
   describe("Start Game", function(){
 
     it("can start a game by creating a new grid", function(){
+      game.players = [player1, player2]
       spyOn(Board.prototype, "createGrid")
       game.startGame(3)
       expect(Board.prototype.createGrid).toHaveBeenCalled()
+    })
+
+    it("assigns values to players when starting a game", function(){
+      game.players = [player1, player2]
+      spyOn(game, "assignPlayerValue")
+      game.startGame(3)
+      expect(game.assignPlayerValue).toHaveBeenCalled()
+    })
+
+    it("does not start a game if there aren't enough players", function(){
+      game.players = [player1]
+      expect(function(){game.startGame(3)}).toThrowError("Not enough players")
     })
 
   })

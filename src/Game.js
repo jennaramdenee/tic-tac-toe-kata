@@ -3,6 +3,7 @@
 function Game(){
   this.board = new Board()
   this.players = []
+  this.isFinished = false
 }
 
 Game.prototype.enoughPlayers = function(){
@@ -54,8 +55,38 @@ Game.prototype.takeTurn = function(userField){
   var selectedField = this.findUserField(userField)
   if (selectedField.isEmpty()){
     selectedField.fill(this.currentPlayer.value)
-    this.switchPlayer()
   } else {
     throw new Error("Field has already been filled")
   }
+  this.nextMove()
+}
+
+Game.prototype.nextMove = function(){
+  this.checkIfOver()
+  if(!this.isOver()){
+    this.switchPlayer()
+  }
+}
+
+Game.prototype.currentBoard = function(){
+  var currentBoard = ""
+  var currentPlayer = this.currentPlayer
+  this.board.grid.forEach(function(field){
+    if (field.value === currentPlayer.value){
+      currentBoard += field.id
+    }
+  })
+  return currentBoard
+}
+
+Game.prototype.checkIfOver = function(){
+  currentBoard = this.currentBoard()
+  var winningPositions = ["123", "456", "789", "159", "357", "147", "258", "369"]
+  if (winningPositions.includes(currentBoard)){
+    this.isFinished = true
+  }
+}
+
+Game.prototype.isOver = function(){
+  return this.isFinished
 }

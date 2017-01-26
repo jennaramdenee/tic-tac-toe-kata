@@ -21,6 +21,10 @@ describe("Game", function(){
       expect(game.players).toEqual(jasmine.arrayContaining([]))
     })
 
+    it("is by default not finished", function(){
+      expect(game.isFinished).toEqual(false)
+    })
+
   })
 
   describe("Add Players", function(){
@@ -106,7 +110,7 @@ describe("Game", function(){
 
   })
 
-  describe("Taking Turns", function(){
+  describe("Finding User Selected Field", function(){
 
     it("finds the corresponding field to user chosen field", function(){
       function FieldDouble(){ this.id = 2}
@@ -120,7 +124,11 @@ describe("Game", function(){
       expect(game.findUserField(2)).toEqual(testField)
     })
 
-    it("checks whether a user's chosen field is empty", function(){
+  })
+
+  describe("Take Turn", function(){
+
+    xit("checks whether a user's chosen field is empty", function(){
       function FieldDouble(){}
       FieldDouble.prototype.isEmpty = function(){}
       var testField2 = new FieldDouble()
@@ -128,7 +136,7 @@ describe("Game", function(){
       spyOn(game, "findUserField").and.returnValue(testField2)
       spyOn(testField2, "isEmpty")
       game.takeTurn(testField2)
-      expect(testField.isEmpty).toHaveBeenCalled()
+      expect(testField2.isEmpty).toHaveBeenCalled()
     })
 
     it("fills the user chosen field with player's value", function(){
@@ -179,8 +187,70 @@ describe("Game", function(){
 
   })
 
+  describe("Look at current board", function(){
 
+    beforeEach(function(){
+      game.addPlayer(player1)
+      game.addPlayer(player2)
+      game.startGame(3)
+    })
 
+    it("can return an array showing fields where value is O", function(){
+      game.takeTurn(1)
+      game.takeTurn(2)
+      game.takeTurn(3)
+      expect(game.currentBoard()).toEqual("2")
+    })
+
+  })
+
+  describe("Is Over", function(){
+
+    it("can check if game is finished", function(){
+      game.isFinished = true
+      expect(game.isOver()).toEqual(true)
+    })
+
+  })
+
+  describe("Winning Game", function(){
+
+    beforeEach(function(){
+      game.addPlayer(player1)
+      game.addPlayer(player2)
+      game.startGame(3)
+    })
+
+    it("can detect a winning game", function(){
+      game.takeTurn(1)
+      game.takeTurn(4)
+      game.takeTurn(2)
+      game.takeTurn(5)
+      game.takeTurn(3)
+      expect(game.isFinished).toEqual(true)
+    })
+
+    it("can detect a game not over yet", function(){
+      game.takeTurn(1)
+      game.takeTurn(4)
+      game.takeTurn(2)
+      game.takeTurn(5)
+      game.takeTurn(6)
+      expect(game.isFinished).toEqual(false)
+    })
+
+  })
+
+  describe("Ending Game / Next Move", function(){
+
+    it("can end the game", function(){
+      game.isFinished = false
+      spyOn(game, "switchPlayer")
+      game.nextMove()
+      expect(game.switchPlayer).toHaveBeenCalled()
+    })
+
+  })
 
 
 })

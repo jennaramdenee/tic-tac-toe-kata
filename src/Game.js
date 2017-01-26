@@ -1,3 +1,5 @@
+//Responsible for starting and managing the game
+
 function Game(){
   this.board = new Board()
   this.players = []
@@ -53,7 +55,7 @@ Game.prototype.takeTurn = function(userField){
   if (selectedField.isEmpty()){
     selectedField.fill(this.currentPlayer.value)
     this.switchPlayer()
+  } else {
+    throw new Error("Field has already been filled")
   }
 }
-
-//switch turns

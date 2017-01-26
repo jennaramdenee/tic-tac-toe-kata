@@ -3,13 +3,11 @@ describe("Game", function(){
   var game;
   var player1;
   var player2;
-  var field;
 
   beforeEach(function(){
     game = new Game()
     player1 = new Player()
     player2 = new Player()
-    field = new Field(2)
 
   })
 
@@ -111,7 +109,7 @@ describe("Game", function(){
   describe("Taking Turns", function(){
 
     it("finds the corresponding field to user chosen field", function(){
-      function FieldDouble(){ this.id = 2 }
+      function FieldDouble(){ this.id = 2}
       var testField = new FieldDouble()
 
       function BoardDouble(){ this.grid = [testField] }
@@ -123,28 +121,50 @@ describe("Game", function(){
     })
 
     it("checks whether a user's chosen field is empty", function(){
-      spyOn(field, "isEmpty")
-      spyOn(game, "findUserField").and.returnValue(field)
-      game.takeTurn(field)
-      expect(field.isEmpty).toHaveBeenCalled()
+      function FieldDouble(){}
+      FieldDouble.prototype.isEmpty = function(){}
+      var testField2 = new FieldDouble()
+
+      spyOn(game, "findUserField").and.returnValue(testField2)
+      spyOn(testField2, "isEmpty")
+      game.takeTurn(testField2)
+      expect(testField.isEmpty).toHaveBeenCalled()
     })
 
     it("fills the user chosen field with player's value", function(){
-      spyOn(field, "fill")
-      spyOn(game, "findUserField").and.returnValue(field)
+      function FieldDouble(){}
+      FieldDouble.prototype.isEmpty = function(){return true}
+      FieldDouble.prototype.fill = function(){}
+      var testField = new FieldDouble()
+
+      spyOn(testField, "fill")
+      spyOn(game, "findUserField").and.returnValue(testField)
       game.players = [player1, player2]
       game.startGame(3)
-      game.takeTurn(field)
-      expect(field.fill).toHaveBeenCalled()
+      game.takeTurn(testField)
+      expect(testField.fill).toHaveBeenCalled()
     })
 
     it("switches current player after a turn has been taken", function(){
+      function FieldDouble(){}
+      FieldDouble.prototype.isEmpty = function(){return true}
+      FieldDouble.prototype.fill = function(){}
+      var testField = new FieldDouble()
+
       spyOn(game, "switchPlayer")
-      spyOn(game, "findUserField").and.returnValue(field)
+      spyOn(game, "findUserField").and.returnValue(testField)
       game.players = [player1, player2]
       game.startGame(3)
-      game.takeTurn(field)
+      game.takeTurn(testField)
       expect(game.switchPlayer).toHaveBeenCalled()
+    })
+
+    it("indicates when a field has already been filled", function(){
+      function FieldDouble(){}
+      FieldDouble.prototype.isEmpty = function(){return false}
+      var testField = new FieldDouble()
+      spyOn(game, "findUserField").and.returnValue(testField)
+      expect(function(){game.takeTurn()}).toThrowError("Field has already been filled")
     })
 
   })

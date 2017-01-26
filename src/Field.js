@@ -1,12 +1,19 @@
-function Field(id){
-  this.empty = true
-  this.id = id
-}
+(function(exports){
 
-Field.prototype.isEmpty = function(){
-  return this.empty
-}
 
-Field.prototype.fill = function(){
-  this.empty = false
-}
+  function Field(id){
+    this.empty = true
+    this.id = id
+  }
+
+  Field.prototype.isEmpty = function(){
+    return this.empty
+  }
+
+  Field.prototype.fill = function(){
+    this.empty = false
+  }
+
+  exports.Field = Field
+
+})

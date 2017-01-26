@@ -10,8 +10,9 @@
     return this.empty
   }
 
-  Field.prototype.fill = function(){
+  Field.prototype.fill = function(value){
     this.empty = false
+    this.value = value
   }
 
   exports.Field = Field

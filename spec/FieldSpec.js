@@ -29,6 +29,16 @@ describe("Field", function(){
       expect(field.empty).toEqual(false)
     })
 
+    it("can assign a value of 'X' when filled", function(){
+      field.fill("X")
+      expect(field.value).toEqual("X")
+    })
+
+    it("can assign a value of 'O' when filled", function(){
+      field.fill("O")
+      expect(field.value).toEqual("O")
+    })
+
   })
 
 

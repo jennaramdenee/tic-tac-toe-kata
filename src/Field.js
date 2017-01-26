@@ -16,4 +16,4 @@
 
   exports.Field = Field
 
-})
+})(this);

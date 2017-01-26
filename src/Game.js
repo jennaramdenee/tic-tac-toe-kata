@@ -14,3 +14,7 @@ Game.prototype.addPlayer = function(player){
     this.players.push(player)
   }
 }
+
+Game.prototype.startGame = function(size){
+  this.board.createGrid(3)
+}

@@ -50,7 +50,15 @@ describe("Game", function(){
 
   })
 
-  // describe("Start ")
+  describe("Start Game", function(){
+
+    it("can start a game by creating a new grid", function(){
+      spyOn(Board.prototype, "createGrid")
+      game.startGame(3)
+      expect(Board.prototype.createGrid).toHaveBeenCalled()
+    })
+
+  })
 
 
 

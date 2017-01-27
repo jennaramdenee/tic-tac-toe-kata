@@ -1,5 +1,5 @@
 //Responsible for managing a single player
 
-function Player(){
-
+function Player(name){
+  this.name = name
 }

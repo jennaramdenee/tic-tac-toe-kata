@@ -23,10 +23,12 @@ $(document).ready(function(){
   })
 
   function lastMove(){
-    if(game.isFinished){
+    if(game._isOver() === "won"){
       var player = game.currentPlayer.name
       $('#enter-players').html('<p>Bow down to '+player+'<p>')
       $('td').off('click')
+    } else if(game._isOver() === "tie"){
+      $('#enter-players').html("<p>It's a tie!<p>")
     }
   }
 

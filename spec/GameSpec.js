@@ -253,5 +253,29 @@ describe("Game", function(){
 
   })
 
+  describe("Full Board", function(){
+
+    it("can check if the board is not full", function(){
+      expect(game._checkIfBoardFull()).toEqual(false)
+    })
+
+    it("can check if the board is full", function(){
+      game.addPlayer(player1)
+      game.addPlayer(player2)
+      game.startGame(3)
+      game.takeTurn(1)
+      game.takeTurn(5)
+      game.takeTurn(2)
+      game.takeTurn(4)
+      game.takeTurn(6)
+      game.takeTurn(3)
+      game.takeTurn(7)
+      game.takeTurn(8)
+      game.takeTurn(9)
+      expect(game._checkIfBoardFull()).toEqual(true)
+    })
+
+  })
+
 
 })

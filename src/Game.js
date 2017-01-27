@@ -104,6 +104,16 @@
     return this.isFinished
   }
 
+  Game.prototype._checkIfBoardFull = function(){
+    var filledField = 0
+    this.board.grid.forEach(function(field){
+      if(!field.empty){
+        filledField += 1
+      }
+    })
+    return filledField === 9
+  }
+
 //   exports.Game = {
 //     addPlayer: addPlayer,
 //     startGame: startGame,

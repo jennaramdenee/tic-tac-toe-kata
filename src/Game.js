@@ -5,7 +5,7 @@
   function Game(){
     this.board = new Board()
     this.players = []
-    this.isFinished = false
+    this.status = "active"
   }
 
   //Used methods
@@ -67,7 +67,8 @@
 
   Game.prototype._nextMove = function(){
     this._checkIfOver()
-    if(!this._isOver()){
+    this._checkIfBoardFull()
+    if(this._isOver() === "active"){
       this._switchPlayer()
     }
   }
@@ -95,23 +96,26 @@
         }
       })
       if (matches === 3){
-        self.isFinished = true
+        self.status = "won"
       }
     })
   }
 
   Game.prototype._isOver = function(){
-    return this.isFinished
+    return this.status
   }
 
   Game.prototype._checkIfBoardFull = function(){
     var filledField = 0
+    var self = this
     this.board.grid.forEach(function(field){
       if(!field.empty){
         filledField += 1
       }
     })
-    return filledField === 9
+    if (filledField === 9){
+      this.status = "tie"
+    }
   }
 
 //   exports.Game = {

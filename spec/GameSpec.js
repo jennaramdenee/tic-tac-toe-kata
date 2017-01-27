@@ -22,7 +22,7 @@ describe("Game", function(){
     })
 
     it("is by default not finished", function(){
-      expect(game.isFinished).toEqual(false)
+      expect(game.status).toEqual("active")
     })
 
   })
@@ -208,8 +208,8 @@ describe("Game", function(){
   describe("Is Over", function(){
 
     it("can check if game is finished", function(){
-      game.isFinished = true
-      expect(game._isOver()).toEqual(true)
+      game.status = "won"
+      expect(game._isOver()).toEqual("won")
     })
 
   })
@@ -228,7 +228,7 @@ describe("Game", function(){
       game.takeTurn(2)
       game.takeTurn(5)
       game.takeTurn(3)
-      expect(game.isFinished).toEqual(true)
+      expect(game._isOver()).toEqual("won")
     })
 
     it("can detect a game not over yet", function(){
@@ -237,7 +237,7 @@ describe("Game", function(){
       game.takeTurn(2)
       game.takeTurn(5)
       game.takeTurn(6)
-      expect(game.isFinished).toEqual(false)
+      expect(game._isOver()).toEqual("active")
     })
 
   })
@@ -245,7 +245,7 @@ describe("Game", function(){
   describe("Ending Game / Next Move", function(){
 
     it("can end the game", function(){
-      game.isFinished = false
+      game.status = "active"
       spyOn(game, "_switchPlayer")
       game._nextMove()
       expect(game._switchPlayer).toHaveBeenCalled()
@@ -256,7 +256,8 @@ describe("Game", function(){
   describe("Full Board", function(){
 
     it("can check if the board is not full", function(){
-      expect(game._checkIfBoardFull()).toEqual(false)
+      game._checkIfBoardFull()
+      expect(game._isOver()).toEqual("active")
     })
 
     it("can check if the board is full", function(){
@@ -272,7 +273,8 @@ describe("Game", function(){
       game.takeTurn(7)
       game.takeTurn(8)
       game.takeTurn(9)
-      expect(game._checkIfBoardFull()).toEqual(true)
+      game._checkIfBoardFull()
+      expect(game._isOver()).toEqual("tie")
     })
 
   })

@@ -10,7 +10,7 @@ describe("Game", function(){
     player2 = new Player()
 
   })
-  
+
   describe("New Game", function(){
 
     it("initializes with a new board", function(){
@@ -133,8 +133,8 @@ describe("Game", function(){
       FieldDouble.prototype.isEmpty = function(){}
       var testField2 = new FieldDouble()
 
-      spyOn(game, "_findUserField").and.returnValue(testField2)
       spyOn(testField2, "isEmpty")
+      spyOn(game, "_findUserField").and.returnValue(testField2)
       game.takeTurn(testField2)
       expect(testField2.isEmpty).toHaveBeenCalled()
     })

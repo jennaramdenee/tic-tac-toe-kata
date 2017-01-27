@@ -2,9 +2,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #c036f7;
+  background-color: #9d0fd6;
   font-family: Verdana;
   font-size: 40px;
+  color: white;
 }
 
 table {
@@ -16,21 +17,25 @@ table {
 
 td {
  text-align: center;
- border: 5px solid #e1e1e8;
+ border: 5px solid white;
  border-radius: 4px;
  height: 5em;
  width: 5em;
+}
+
+p {
+  font-size: 16px;
+  text-align: center;
 }
 
 .header {
   height: 90px;
   text-align: center;
   line-height: 90px;
-  color: white;
 }
 
 .game {
-  border: 5px solid #e1e1e8;
+  border: 5px solid white;
   border-radius: 4px;
   margin: 20px;
   width: 500px;
@@ -47,7 +52,7 @@ td {
 
 #player1, #player2 {
   padding: 5px;
-  border: 5px solid #e1e1e8;
+  border: 5px solid white;
   border-radius: 4px;
   background-color: inherit;
 }

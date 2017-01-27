@@ -44,12 +44,12 @@ describe("Game", function(){
   describe("Enough Players", function(){
 
     it("can check when there are not two players", function(){
-      expect(game.enoughPlayers()).toEqual(false)
+      expect(game._enoughPlayers()).toEqual(false)
     })
 
     it("can check when there are two players", function(){
       game.players = [player1, player2]
-      expect(game.enoughPlayers()).toEqual(true)
+      expect(game._enoughPlayers()).toEqual(true)
     })
 
   })
@@ -58,13 +58,13 @@ describe("Game", function(){
 
     it("can assign 'X' to first player", function(){
       game.players = [player1, player2]
-      game.assignPlayerValue()
+      game._assignPlayerValue()
       expect(player1.value).toEqual("X")
     })
 
     it("can assign 'O' to first player", function(){
       game.players = [player1, player2]
-      game.assignPlayerValue()
+      game._assignPlayerValue()
       expect(player2.value).toEqual("O")
     })
 
@@ -74,7 +74,7 @@ describe("Game", function(){
 
     it("assigns the first player as current player", function(){
       game.players = [player1, player2]
-      game.assignCurrentPlayer()
+      game._assignCurrentPlayer()
       expect(game.currentPlayer).toEqual(player1)
     })
 
@@ -91,16 +91,16 @@ describe("Game", function(){
 
     it("assigns values to players when starting a game", function(){
       game.players = [player1, player2]
-      spyOn(game, "assignPlayerValue")
+      spyOn(game, "_assignPlayerValue")
       game.startGame(3)
-      expect(game.assignPlayerValue).toHaveBeenCalled()
+      expect(game._assignPlayerValue).toHaveBeenCalled()
     })
 
     it("assigns current player when starting a game", function(){
       game.players = [player1, player2]
-      spyOn(game, "assignCurrentPlayer")
+      spyOn(game, "_assignCurrentPlayer")
       game.startGame(3)
-      expect(game.assignCurrentPlayer).toHaveBeenCalled()
+      expect(game._assignCurrentPlayer).toHaveBeenCalled()
     })
 
     it("does not start a game if there aren't enough players", function(){
@@ -121,7 +121,7 @@ describe("Game", function(){
 
       game.board = testBoard
 
-      expect(game.findUserField(2)).toEqual(testField)
+      expect(game._findUserField(2)).toEqual(testField)
     })
 
   })
@@ -133,7 +133,7 @@ describe("Game", function(){
       FieldDouble.prototype.isEmpty = function(){}
       var testField2 = new FieldDouble()
 
-      spyOn(game, "findUserField").and.returnValue(testField2)
+      spyOn(game, "_findUserField").and.returnValue(testField2)
       spyOn(testField2, "isEmpty")
       game.takeTurn(testField2)
       expect(testField2.isEmpty).toHaveBeenCalled()
@@ -146,7 +146,7 @@ describe("Game", function(){
       var testField = new FieldDouble()
 
       spyOn(testField, "fill")
-      spyOn(game, "findUserField").and.returnValue(testField)
+      spyOn(game, "_findUserField").and.returnValue(testField)
       game.players = [player1, player2]
       game.startGame(3)
       game.takeTurn(testField)
@@ -159,19 +159,19 @@ describe("Game", function(){
       FieldDouble.prototype.fill = function(){}
       var testField = new FieldDouble()
 
-      spyOn(game, "switchPlayer")
-      spyOn(game, "findUserField").and.returnValue(testField)
+      spyOn(game, "_switchPlayer")
+      spyOn(game, "_findUserField").and.returnValue(testField)
       game.players = [player1, player2]
       game.startGame(3)
       game.takeTurn(testField)
-      expect(game.switchPlayer).toHaveBeenCalled()
+      expect(game._switchPlayer).toHaveBeenCalled()
     })
 
     it("indicates when a field has already been filled", function(){
       function FieldDouble(){}
       FieldDouble.prototype.isEmpty = function(){return false}
       var testField = new FieldDouble()
-      spyOn(game, "findUserField").and.returnValue(testField)
+      spyOn(game, "_findUserField").and.returnValue(testField)
       expect(function(){game.takeTurn()}).toThrowError("Field has already been filled")
     })
 
@@ -181,7 +181,7 @@ describe("Game", function(){
 
     it("can indicate whose turn it is", function(){
       game.players = [player1, player2]
-      game.switchPlayer()
+      game._switchPlayer()
       expect(game.currentPlayer).toEqual(player2)
     })
 
@@ -199,7 +199,7 @@ describe("Game", function(){
       game.takeTurn(1)
       game.takeTurn(2)
       game.takeTurn(3)
-      expect(game.currentBoard()).toEqual("2")
+      expect(game._currentBoard()).toEqual("2")
     })
 
   })
@@ -208,7 +208,7 @@ describe("Game", function(){
 
     it("can check if game is finished", function(){
       game.isFinished = true
-      expect(game.isOver()).toEqual(true)
+      expect(game._isOver()).toEqual(true)
     })
 
   })
@@ -245,9 +245,9 @@ describe("Game", function(){
 
     it("can end the game", function(){
       game.isFinished = false
-      spyOn(game, "switchPlayer")
-      game.nextMove()
-      expect(game.switchPlayer).toHaveBeenCalled()
+      spyOn(game, "_switchPlayer")
+      game._nextMove()
+      expect(game._switchPlayer).toHaveBeenCalled()
     })
 
   })

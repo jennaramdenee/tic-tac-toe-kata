@@ -98,7 +98,6 @@ Game.prototype._checkIfOver = function(){
   })
 }
 
-
 Game.prototype._isOver = function(){
   return this.isFinished
 }

@@ -71,23 +71,33 @@ Game.prototype._nextMove = function(){
 }
 
 Game.prototype._currentBoard = function(){
-  var currentBoard = ""
+  var currentBoard = []
   var currentPlayer = this.currentPlayer
   this.board.grid.forEach(function(field){
     if (field.value === currentPlayer.value){
-      currentBoard += field.id
+      currentBoard.push((field.id).toString())
     }
   })
   return currentBoard
 }
 
 Game.prototype._checkIfOver = function(){
-  currentBoard = this._currentBoard()
+  var currentBoard = this._currentBoard()
   var winningPositions = ["123", "456", "789", "159", "357", "147", "258", "369"]
-  if (winningPositions.includes(currentBoard)){
-    this.isFinished = true
-  }
+  var self = this
+  winningPositions.forEach(function(position){
+    var matches = 0
+    currentBoard.forEach(function(play){
+      if (position.includes(play)){
+        matches += 1
+      }
+    })
+    if (matches === 3){
+      self.isFinished = true
+    }
+  })
 }
+
 
 Game.prototype._isOver = function(){
   return this.isFinished

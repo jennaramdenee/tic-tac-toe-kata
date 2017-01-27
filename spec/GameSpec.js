@@ -10,7 +10,7 @@ describe("Game", function(){
     player2 = new Player()
 
   })
-
+  
   describe("New Game", function(){
 
     it("initializes with a new board", function(){
@@ -31,7 +31,7 @@ describe("Game", function(){
 
     it("can add a new player to the game", function(){
       game.addPlayer(player1)
-      expect(game.players).toEqual(jasmine.arrayContaining([player1]))
+      expect(game.players.length).toEqual(1)
     })
 
     it("does not add more than 2 players", function(){
@@ -199,7 +199,8 @@ describe("Game", function(){
       game.takeTurn(1)
       game.takeTurn(2)
       game.takeTurn(3)
-      expect(game._currentBoard()).toEqual("2")
+      game.takeTurn(4)
+      expect(game._currentBoard()).toEqual(jasmine.arrayContaining(["1", "3"]))
     })
 
   })

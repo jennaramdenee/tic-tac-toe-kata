@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tic-Tac-Toe</title>
+  <link rel='stylesheet' href='stylesheet.css'>
+</head>
+
+<body>
+
+
+  <div class='game'>
+
+    <div class='header'>
+      Tic-Tac-Toe
+    </div>
+
+    <div class='players'>
+
+      <form id='enter-players'>
+        <input type="text" name="player1" id='player1'>
+        <input type="text" name="player2" id='player2'>
+        <input type='submit' value='Play'>
+      </form>
+
+    </div>
+
+    <div class='grid'>
+
+      <table>
+        <tr>
+          <td name="1"></td>
+          <td name="2"></td>
+          <td name="3"></td>
+        </tr>
+        <tr>
+          <td name="4"></td>
+          <td name="5"></td>
+          <td name="6"></td>
+        </tr>
+        <tr>
+          <td name="7"></td>
+          <td name="8"></td>
+          <td name="9"></td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- include source files here... -->
+  <script src="src/Field.js"></script>
+  <script src="src/Board.js"></script>
+  <script src="src/Game.js"></script>
+  <script src="src/Player.js"></script>
+
+</body>
+</html>

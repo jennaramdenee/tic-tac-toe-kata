@@ -9,7 +9,7 @@ $(document).ready(function(){
     game.addPlayer(player1)
     game.addPlayer(player2)
     game.startGame(3)
-    $('#enter-players').html('<p>'+player1+' vs. '+player2+'<p>')
+    $('#enter-players').html('<p><u>Player 1:</u> '+player1+' vs. <u>Player2:</u> '+player2+'<p>')
   })
 
 
@@ -29,7 +29,5 @@ $(document).ready(function(){
       $('td').off('click')
     }
   }
-
-
 
 })

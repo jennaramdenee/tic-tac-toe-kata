@@ -7,11 +7,11 @@ function Game(){
 }
 
 //Used methods
-Game.prototype.addPlayer = function(player){
+Game.prototype.addPlayer = function(name){
   if (this._enoughPlayers()){
     throw new Error("Already has 2 players")
   } else {
-    this.players.push(new Player())
+    this.players.push(new Player(name))
   }
 }
 
